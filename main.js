@@ -92,6 +92,7 @@ function findWinner(playerChoice, houseChoice) {
   if (winRateOfPlayer.beatsBtn.includes(houseChoice)) {
     winnerDeklaration.innerHTML = "You win";
     setTimeout(() => {
+      pointWinner(playerResult);
       score.innerHTML = updateScore("up");
       saveScore();
     }, 3000);
@@ -100,10 +101,15 @@ function findWinner(playerChoice, houseChoice) {
   } else {
     winnerDeklaration.innerHTML = "You lose";
     setTimeout(() => {
+    pointWinner(houseResult);
     score.innerHTML = updateScore("down");
     saveScore();
   }, 3000);
   }
+}
+
+function pointWinner(winner) {
+  winner.classList.toggle("win");
 }
 
 function updateScore(updown){
@@ -129,6 +135,12 @@ function playAgain() {
   toggleAni1();
   toggleAni2();
   houseBtn();
+
+  if(playerResult.classList.contains("win")) {
+    pointWinner(playerResult);
+  } else if (houseResult.classList.contains("win")){
+    pointWinner(houseResult);
+  }
 }
 
 choiceBtn.forEach(button => button.addEventListener("click", () => {

@@ -32,6 +32,7 @@ body{
 main {
   padding-top: 3rem;
   position: relative;
+  overflow: hidden;
 }
 
 
@@ -248,6 +249,17 @@ h3 {
 
 .choice-btn.result:hover::before {
   opacity: 0;
+}
+
+.choice-btn.result.win::before {
+  width: 241%;
+  height: 237%;
+  background: radial-gradient(circle at center, rgba(151,151,151,0.15), rgba(151,151,151,0.15) 43%, rgba(151,151,151,0.10) 43%, rgba(151,151,151,0.10) 56%, rgba(151,151,151,0.05) 56%, rgba(151,151,151,0.05));
+  box-shadow: none;
+  opacity: 1;
+  transition: opacity 2.5s ease;
+  border-radius: 50%;
+  z-index: -1;
 }
 
 .result.circle {
