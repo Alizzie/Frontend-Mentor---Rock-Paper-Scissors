@@ -1,0 +1,402 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --darkText: hsl(229, 25%, 31%);
+  --scoreText: hsl(229, 64%, 46%);
+  --headerOutline: hsl(217, 16%, 45%);
+  --scissorsGradient: linear-gradient(to top, hsl(39, 89%, 49%), hsl(40, 84%, 53%));
+  --paperGradient: linear-gradient(to top, hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+  --rockGradient: linear-gradient(to top, hsl(349, 71%, 52%), hsl(349, 70%, 56%));
+  --lizardGradient: linear-gradient(to top, hsl(261, 73%, 60%), hsl(261, 72%, 63%));
+  --spockGradient: linear-gradient(to top, hsl(189, 59%, 53%), hsl(189, 58%, 57%));
+  --backgroundGradient: radial-gradient(at top, hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+  --shadow: #BABFD4;
+  --scissorShadow: #C76C1B;
+  --paperShadow: #2A45C2;
+  --rockShadow: #9D1634;
+  --lizardShadow: #5F37A8;
+  --spockShadow: #2D8DAB;
+  --circle: linear-gradient(to top, #F3F3F3, #DADADA);
+  font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+body{
+  background-repeat: no-repeat;
+  background-image: var(--backgroundGradient);
+  color: #FFF;
+}
+
+main {
+  padding-top: 3rem;
+  position: relative;
+}
+
+
+p {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  margin-bottom: -2px;
+}
+
+h1, h2 {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--darkText);
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  margin-bottom: 4rem;
+}
+
+/* Scoreline*/
+.scoreline {
+  width: 700px;
+  height: 150px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 3px solid var(--headerOutline);
+  border-radius: 15px;
+  padding: 0 1.5rem;
+}
+
+.score {
+  background-color: #FFF;
+  width: 150px;
+  height: 114px;
+  color: var(--scoreText);
+  text-align: center;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreText {
+  width: 55px;
+  height: 83px;
+}
+
+/* Game */
+.game {
+  margin: 48px auto 0;
+  background-image: url(images/bg-pentagon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 472px;
+  height: 463px;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr 1fr;
+  grid-template-rows: 0.75fr 1.25fr 1fr;
+  grid-template-areas:
+    "e scissors scissors scissors d"
+    "spock none none none paper"
+    "lizard lizard b rock rock";
+}
+
+.choice-btn {
+  width: 145px;
+  height: 148px;
+  border-radius: 50%;
+  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.choice-btn::before {
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  transform: translate(0, 0);
+  content: "";
+  background-color: #979797;
+  box-shadow: 0 0.2rem #979797;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.choice-btn:hover::before {
+  opacity: 0.15;
+}
+
+.circle {
+  width: 112px;
+  height: 112px;
+  background-image: var(--circle);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0.3rem var(--shadow);
+}
+
+.choice-btn[data-choice="scissors"] {
+  grid-area: scissors;
+  justify-self: center;
+  align-self: flex-end;
+  background-image: var(--scissorsGradient);
+  box-shadow: 0 0.4rem var(--scissorShadow), 0 0.6rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.choice-btn[data-choice="paper"] {
+  grid-area: paper;
+  margin-top: -15px;
+  background-image: var(--paperGradient);
+  box-shadow: 0 0.4rem var(--paperShadow), 0 0.6rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.choice-btn[data-choice="rock"] {
+  grid-area: rock;
+  justify-self: start;
+  background-image: var(--rockGradient);
+  box-shadow: 0 0.4rem var(--rockShadow), 0 0.6rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.choice-btn[data-choice="lizard"] {
+  grid-area: lizard;
+  justify-self: end;
+  background-image: var(--lizardGradient);
+  box-shadow: 0 0.4rem var(--lizardShadow), 0 0.6rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.choice-btn[data-choice="spock"] {
+  grid-area: spock;
+  margin-top: -15px;
+  background-image: var(--spockGradient);
+  box-shadow: 0 0.4rem var(--spockShadow), 0 0.6rem 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Game Decision */
+.gameDecision {
+  margin: 4.5rem auto 2rem;
+  display: none;
+  grid-column-gap: 3em;
+  grid-template-areas: "playerBtn winnerdeklaration houseBtn";
+  place-items: center;
+  justify-content: center;
+}
+
+.player-choice, .house-choice {
+  text-align: center;
+  text-transform: uppercase;
+  width: 295px;
+  height: 395px;
+}
+
+.player-choice {
+  grid-area: playerBtn;
+}
+
+.house-choice {
+  grid-area: houseBtn;
+  display: flex;
+  flex-direction: column;
+}
+
+.house-btn , .player-btn{
+  width: 100%;
+  height: 290px;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result.choice-btn {
+  width: 100%;
+  height: 290px;
+  cursor: auto;
+}
+
+.result.choice-btn[data-choice="scissors"] {
+  box-shadow: 0 0.9rem var(--scissorShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.result.choice-btn[data-choice="paper"] {
+  box-shadow: 0 0.9rem var(--paperShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.result.choice-btn[data-choice="rock"]{
+  box-shadow: 0 0.9rem var(--rockShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.result.choice-btn[data-choice="lizard"] {
+  box-shadow: 0 0.9rem var(--lizardShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.result.choice-btn[data-choice="spock"] {
+  box-shadow: 0 0.9rem var(--spockShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
+}
+
+.choice-btn.result:hover::before {
+  opacity: 0;
+}
+
+.result.circle {
+  width: 225px;
+  height: 225px;
+  box-shadow: inset 0 0.8rem var(--shadow);
+}
+
+.result.house-choose {
+  background: rgba(0,0,0,0.1);
+  box-shadow: none;
+}
+
+img.result {
+  width: 100px;
+  height: 100px;
+}
+
+.animation1 {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.animation2 {
+  opacity: 1;
+}
+
+.winner-decision {
+  grid-area: winnerdeklaration;
+  display: none;
+}
+
+.winner-deklaration {
+  font-size: 56px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #FFF;
+}
+
+.play-again {
+  border: 0;
+  border-radius: 8px;
+  background: #FFF;
+  text-transform: uppercase;
+  color: var(--darkText);
+  font-size: 16px;
+  letter-spacing: 2.5px;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 700;
+  padding: 15px 60px;
+  margin-top: 1.2rem;
+  cursor: pointer;
+}
+
+.play-again:hover, .play-again:focus {
+  opacity: 0.9;
+}
+
+.active {
+  display: block;
+  animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+  from{
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+}
+
+/* Rule */
+.gameRule-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rule-btn {
+  margin: 0 2rem 3rem 2rem;
+  background: none;
+  border-radius: 8px;
+  border: 1px solid var(--headerOutline);
+  color: #FFF;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  font-size: 16px;
+  padding: 0.7rem 2.3rem;
+  cursor: pointer;
+}
+
+.rule-btn:focus, .rule-btn:hover{
+  border: 2px solid #fff;
+}
+
+.rulesgameBoard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.5);
+  visibility: hidden;
+}
+
+.rules {
+  background-color: #FFF;
+  padding: 2rem 2rem 3rem;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr;
+  grid-row-gap: 1rem;
+  grid-template-areas: "Header CloseIcon" "RulesImg RulesImg";
+  place-items: center;
+}
+
+.rulesheader{
+  grid-area: Header;
+  justify-self: start;
+}
+
+.closeIcon {
+  grid-area: CloseIcon;
+  justify-self: end;
+  cursor: pointer;
+  width: 1.4rem;
+  transition: width 0.4s ease;
+}
+
+.closeIcon:hover {
+  width: 2rem;
+}
+
+.rulesImg {
+  grid-area: RulesImg;
+}
+
+.attribution {
+  font-family: sans-serif;
+  font-size: 10px;
+  text-align: center;
+}
+
+.attribution a {
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+}
