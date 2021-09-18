@@ -1,4 +1,3 @@
-
 // Rules Board
 const ruleBtn = document.querySelector(".rule-btn");
 const rulePage = document.querySelector(".rulesgameBoard");
@@ -25,7 +24,7 @@ let score = document.querySelector(".scoreNum");
 let winnerDeklaration = document.querySelector(".winner-deklaration");
 let playerResult = document.querySelector(".player-btn");
 let houseResult = document.querySelector(".house-btn");
-let playerChoice;
+let playerChoice, houseChoice;
 
 function btnBeats(btn, beatsBtn) {
   this.btn = btn;
@@ -40,6 +39,11 @@ const winOptions = [
   new btnBeats("spock", "scissors rock")
 ];
 
+function setChoices(playerbtn) {
+  playerChoice = playerbtn;
+  houseChoice = choiceBtn[Math.floor(winOptions.length * Math.random())].dataset.choice;;
+}
+
 function chooseBtn(who, choice) {
 
   if(who == houseResult){
@@ -49,7 +53,7 @@ function chooseBtn(who, choice) {
   if(who.innerHTML.includes("choice-btn result")){
     who.innerHTML = "";
   } else {
-    who.innerHTML = '\n   <div class="choice-btn result" data-choice =' + choice + ' >\n\n <img src="images/icon-' + choice + '.svg" alt="' + choice + '" class="result">  </div>\n  ';
+    who.innerHTML = '\n   <div class="choice-btn result" data-choice =' + choice + ' >\n\n <img src="images/icon-' + choice + '.svg" alt="' + choice + '" class="choice-img result">  </div>\n  ';
   }
 
 }
@@ -62,10 +66,6 @@ function changeSide() {
     gameSide.style.display = "grid";
     decisionSide.style.display = "none";
   }
-}
-
-function houseDecision() {
-  return choiceBtn[Math.floor(winOptions.length * Math.random())].dataset.choice;
 }
 
 function findWinner(playerChoice, houseChoice) {
@@ -110,13 +110,13 @@ function updateScore(updown){
 }
 
 function saveScore(){
-  sessionStorage.setItem("score", score.innerHTML);
+  localStorage.setItem("score", score.innerHTML);
 }
 
 function playAgain() {
   changeSide();
   chooseBtn(playerResult, playerChoice);
-  chooseBtn(houseResult, houseDecision());
+  chooseBtn(houseResult, houseChoice);
   toggleAni1();
   toggleAni2();
 
@@ -136,7 +136,7 @@ function toggleAni2() {
 }
 
 choiceBtn.forEach(button => button.addEventListener("click", () => {
-  playerChoice = button.dataset.choice;
+  setChoices(button.dataset.choice);
 
   //Change Side with Player Choice
   chooseBtn(playerResult, playerChoice);
@@ -144,11 +144,11 @@ choiceBtn.forEach(button => button.addEventListener("click", () => {
 
   //House Choice added
   setTimeout(() => toggleAni1(), 1000);
-  setTimeout(() => chooseBtn(houseResult, houseDecision()), 2000);
+  setTimeout(() => chooseBtn(houseResult, houseChoice), 2000);
 
   //Find Winner
   setTimeout(() => toggleAni2(),3000);
-  findWinner(playerChoice, houseDecision());
+  findWinner(playerChoice, houseChoice);
 
 }))
 
@@ -159,8 +159,8 @@ playBtn.addEventListener("click", () => {
 //Maintain Score
 window.onload = function setScore() {
 
-  if(sessionStorage.getItem("score") == null) {
-    sessionStorage.setItem("score", score.innerHTML);
+  if(localStorage.getItem("score") == null) {
+    localStorage.setItem("score", score.innerHTML);
   }
-  score.innerHTML = sessionStorage.getItem("score");
+  score.innerHTML = localStorage.getItem("score");
 }

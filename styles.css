@@ -23,7 +23,7 @@
   font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
-body{
+body {
   background-repeat: no-repeat;
   background-image: var(--backgroundGradient);
   color: #FFF;
@@ -34,7 +34,6 @@ main {
   position: relative;
   overflow: hidden;
 }
-
 
 p {
   font-size: 16px;
@@ -151,11 +150,6 @@ h3 {
   box-shadow: inset 0 0.3rem var(--shadow);
 }
 
-img {
-  position: relative;
-  z-index: 2;
-}
-
 .choice-btn[data-choice="scissors"] {
   grid-area: scissors;
   justify-self: center;
@@ -219,10 +213,10 @@ img {
   flex-direction: column;
 }
 
-.house-btn , .player-btn{
+.house-btn, .player-btn {
   width: 100%;
   height: 290px;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
 }
 
@@ -240,7 +234,7 @@ img {
   box-shadow: 0 0.9rem var(--paperShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
 }
 
-.result.choice-btn[data-choice="rock"]{
+.result.choice-btn[data-choice="rock"] {
   box-shadow: 0 0.9rem var(--rockShadow), 0 1.1rem 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -260,7 +254,7 @@ img {
 .choice-btn.result.win::before {
   width: 241%;
   height: 237%;
-  background: radial-gradient(circle at center, rgba(151,151,151,0.15), rgba(151,151,151,0.15) 43%, rgba(151,151,151,0.10) 43%, rgba(151,151,151,0.10) 56%, rgba(151,151,151,0.05) 56%, rgba(151,151,151,0.05));
+  background: radial-gradient(circle at center, rgba(151, 151, 151, 0.15), rgba(151, 151, 151, 0.15) 43%, rgba(151, 151, 151, 0.10) 43%, rgba(151, 151, 151, 0.10) 56%, rgba(151, 151, 151, 0.05) 56%, rgba(151, 151, 151, 0.05));
   box-shadow: none;
   opacity: 1;
   transition: opacity 2.5s ease;
@@ -272,7 +266,12 @@ img {
   box-shadow: inset 0 0.8rem var(--shadow);
 }
 
-img.result {
+.choice-img {
+  position: relative;
+  z-index: 2;
+}
+
+.result.choice-img {
   width: 100px;
   height: 100px;
 }
@@ -325,9 +324,11 @@ img.result {
 }
 
 @keyframes fadeIn {
-  from{
+  from {
     opacity: 0;
-  } to {
+  }
+
+  to {
     opacity: 1;
   }
 }
@@ -353,7 +354,7 @@ img.result {
   cursor: pointer;
 }
 
-.rule-btn:focus, .rule-btn:hover{
+.rule-btn:focus, .rule-btn:hover {
   border: 2px solid #fff;
 }
 
@@ -366,7 +367,7 @@ img.result {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   visibility: hidden;
 }
 
@@ -377,11 +378,11 @@ img.result {
   display: grid;
   grid-template-columns: 0.5fr 0.5fr;
   grid-row-gap: 1rem;
-  grid-template-areas: "Header CloseIcon" "RulesImg RulesImg";
+  grid-template-areas: "Header CloseIcon""RulesImg RulesImg";
   place-items: center;
 }
 
-.rulesheader{
+.rulesheader {
   grid-area: Header;
   justify-self: start;
 }
@@ -412,4 +413,126 @@ img.result {
   color: #FFF;
   text-decoration: none;
   cursor: pointer;
+}
+
+
+@media all and (max-width: 1200px) {
+  p {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  .scoreline {
+    width: 500px;
+    height: 110px;
+    padding: 0 1rem;
+    border-radius: 8px;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .score {
+    width: 100px;
+    height: 90px;
+    border-radius: 6px;
+  }
+
+  .scoreText {
+    width: 45px;
+    height: 62px;
+  }
+
+  .game {
+    width: 400px;
+    height: 400px;
+    grid-gap: 2% 0;
+    margin-top: 5rem;
+  }
+
+  .choice-btn {
+    width: 120px;
+    height: 120px;
+  }
+
+  .choice-img {
+    width: 35%;
+    height: auto;
+  }
+
+  .choice-img[alt="spock"] {
+    width: 32%;
+  }
+
+  .choice-img[alt="lizard"] {
+    width: 38%;
+  }
+
+
+  .attribution {
+    font-size: 8px;
+  }
+}
+
+@media all and (max-width: 768px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  p {
+    font-size: 10px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .scoreline {
+    width: 270px;
+    height: 90px;
+    padding: 0 1rem;
+    border-radius: 5px;
+  }
+
+  .logo {
+    width: 49px;
+  }
+
+  .score {
+    width: 80px;
+    height: 70px;
+    border-radius: 4px;
+  }
+
+  .scoreText {
+    width: 35px;
+    height: 52px;
+  }
+
+  .game {
+    width: 311px;
+    height: 305px;
+    background-size: 80%;
+    grid-gap: 2% 0;
+    margin-top: 5rem;
+  }
+
+  .choice-btn {
+    width: 95px;
+    height: 95px;
+  }
+  .rule-btn {
+    margin-top: 7rem;
+  }
+
+  .attribution {
+    font-size: 7px;
+  }
 }
