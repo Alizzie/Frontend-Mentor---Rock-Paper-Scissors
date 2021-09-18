@@ -117,6 +117,7 @@ h3 {
   align-items: center;
   cursor: pointer;
   position: relative;
+  z-index: 0;
 }
 
 .choice-btn::before {
@@ -137,15 +138,22 @@ h3 {
   opacity: 0.15;
 }
 
-.circle {
-  width: 112px;
-  height: 112px;
-  background-image: var(--circle);
+.choice-btn::after {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  transform: translate(0, 0);
+  content: "";
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  opacity: 1;
+  z-index: 1;
+  background-image: var(--circle);
   box-shadow: inset 0 0.3rem var(--shadow);
+}
+
+img {
+  position: relative;
+  z-index: 2;
 }
 
 .choice-btn[data-choice="scissors"] {
@@ -214,11 +222,8 @@ h3 {
 .house-btn , .player-btn{
   width: 100%;
   height: 290px;
-  background: transparent;
+  background: rgba(0,0,0,0.1);
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .result.choice-btn {
@@ -249,6 +254,7 @@ h3 {
 
 .choice-btn.result:hover::before {
   opacity: 0;
+  cursor: auto;
 }
 
 .choice-btn.result.win::before {
@@ -262,15 +268,8 @@ h3 {
   z-index: -1;
 }
 
-.result.circle {
-  width: 225px;
-  height: 225px;
+.result.choice-btn::after {
   box-shadow: inset 0 0.8rem var(--shadow);
-}
-
-.result.house-choose {
-  background: rgba(0,0,0,0.1);
-  box-shadow: none;
 }
 
 img.result {
@@ -311,6 +310,8 @@ img.result {
   font-weight: 700;
   padding: 15px 60px;
   margin-top: 1.2rem;
+  position: relative;
+  z-index: 2;
   cursor: pointer;
 }
 

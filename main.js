@@ -24,8 +24,8 @@ const playBtn = document.querySelector(".play-again");
 let score = document.querySelector(".scoreNum");
 let winnerDeklaration = document.querySelector(".winner-deklaration");
 let playerResult = document.querySelector(".player-btn");
-let playerBtnImg = document.querySelector("img.result");
 let houseResult = document.querySelector(".house-btn");
+let playerChoice;
 
 function btnBeats(btn, beatsBtn) {
   this.btn = btn;
@@ -40,13 +40,21 @@ const winOptions = [
   new btnBeats("spock", "scissors rock")
 ];
 
-function playerBtn(choice) {
-  playerResult.setAttribute("data-choice", choice);
-  playerBtnImg.src = "images/icon-" + choice + ".svg";
+function chooseBtn(who, choice) {
+
+  if(who == houseResult){
+    houseResult.classList.toggle("animation2");
+  }
+
+  if(who.innerHTML.includes("choice-btn result")){
+    who.innerHTML = "";
+  } else {
+    who.innerHTML = '\n   <div class="choice-btn result" data-choice =' + choice + ' >\n\n <img src="images/icon-' + choice + '.svg" alt="' + choice + '" class="result">  </div>\n  ';
+  }
+
 }
 
 function changeSide() {
-
   if (gameSide.style.display != "none") {
     gameSide.style.display = "none";
     decisionSide.style.display = "grid";
@@ -54,35 +62,10 @@ function changeSide() {
     gameSide.style.display = "grid";
     decisionSide.style.display = "none";
   }
-
 }
 
 function houseDecision() {
-  return houseChoice = choiceBtn[Math.floor(winOptions.length * Math.random())].dataset.choice;
-}
-
-function toggleAni1() {
-  houseResult.classList.toggle("animation1");
-}
-
-function houseBtn(choice) {
-  let addClasses = ["choice-btn", "result", "animation2"];
-  for (let i = 0; i < addClasses.length; i++) {
-    houseResult.classList.toggle(addClasses[i]);
-  }
-
-  if (houseResult.getAttribute("data-choice") == null) {
-
-    houseResult.setAttribute("data-choice", choice);
-    houseResult.innerHTML = '\n   <div class="result circle">\n\n <img src="images/icon-' + choice + '.svg" alt="' + choice + '" class="result">  </div>\n  ';
-  } else {
-    houseResult.removeAttribute("data-choice");
-    houseResult.innerHTML = "<div class='result circle house-choose'></div>";
-  }
-}
-
-function toggleAni2() {
-  decision.classList.toggle("active");
+  return choiceBtn[Math.floor(winOptions.length * Math.random())].dataset.choice;
 }
 
 function findWinner(playerChoice, houseChoice) {
@@ -109,7 +92,7 @@ function findWinner(playerChoice, houseChoice) {
 }
 
 function pointWinner(winner) {
-  winner.classList.toggle("win");
+  winner.firstElementChild.classList.toggle("win");
 }
 
 function updateScore(updown){
@@ -132,9 +115,10 @@ function saveScore(){
 
 function playAgain() {
   changeSide();
+  chooseBtn(playerResult, playerChoice);
+  chooseBtn(houseResult, houseDecision());
   toggleAni1();
   toggleAni2();
-  houseBtn();
 
   if(playerResult.classList.contains("win")) {
     pointWinner(playerResult);
@@ -143,23 +127,29 @@ function playAgain() {
   }
 }
 
+function toggleAni1() {
+  houseResult.classList.toggle("animation1");
+}
+
+function toggleAni2() {
+  decision.classList.toggle("active");
+}
+
 choiceBtn.forEach(button => button.addEventListener("click", () => {
-  let playerChoice = button.dataset.choice;
+  playerChoice = button.dataset.choice;
 
   //Change Side with Player Choice
-  playerBtn(playerChoice);
+  chooseBtn(playerResult, playerChoice);
   changeSide();
 
   //House Choice added
-  let houseChoice = houseDecision();
   setTimeout(() => toggleAni1(), 1000);
-  setTimeout(() => houseBtn(houseChoice), 2000);
+  setTimeout(() => chooseBtn(houseResult, houseDecision()), 2000);
 
   //Find Winner
   setTimeout(() => toggleAni2(),3000);
-  findWinner(playerChoice, houseChoice);
+  findWinner(playerChoice, houseDecision());
 
-  //Update Score
 }))
 
 playBtn.addEventListener("click", () => {
