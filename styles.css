@@ -426,6 +426,13 @@ h3 {
     font-size: 50px;
   }
 
+  h3 {
+    font-size: 15px;
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    letter-spacing: 0.1rem;
+  }
+
   .scoreline {
     width: 500px;
     height: 110px;
@@ -472,7 +479,6 @@ h3 {
   .choice-img[alt="lizard"] {
     width: 38%;
   }
-
 
   .attribution {
     font-size: 8px;
@@ -531,6 +537,45 @@ h3 {
   }
   .rule-btn {
     margin-top: 7rem;
+  }
+
+  .player-choice, .house-choice{
+    width: 145px;
+    height: 180px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .house-btn, .player-btn{
+    display: flex;
+    width: 130px;
+    height: 130px;
+  }
+
+  .gameDecision{
+    grid-template-areas: "playerBtn houseBtn" "winnerdeklaration winnerdeklaration";
+    grid-column-gap: 3.5rem;
+    margin: 7.5rem auto -4rem;
+  }
+
+  .choice-btn.result{
+    width: 130px;
+    height: 125px;
+  }
+
+  .result.choice-img{
+    width: 40%;
+    height: auto;
+  }
+
+  .winner-decision{
+    margin-top: 4rem;
+  }
+
+  .play-again{
+    margin-top: 1.5rem;
   }
 
   .attribution {
