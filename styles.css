@@ -556,7 +556,7 @@ h3 {
 
   .gameDecision{
     grid-template-areas: "playerBtn houseBtn" "winnerdeklaration winnerdeklaration";
-    grid-column-gap: 3.5rem;
+    grid-column-gap: 2.5rem;
     margin: 7.5rem auto -4rem;
   }
 
@@ -577,6 +577,38 @@ h3 {
   .play-again{
     margin-top: 1.5rem;
   }
+
+  .rulesgameBoard {
+    align-items: flex-start;
+  }
+
+  .rules{
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "header" "rules" "closeIcon";
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.75fr 1fr 0.75fr;
+    grid-row-gap: 0;
+    padding: 0;
+  }
+
+  .rulesheader {
+    grid-area: header;
+    justify-self: inherit;
+  }
+
+  .closeIcon {
+    grid-area: closeIcon;
+    justify-self: inherit;
+    margin-top: 2.5rem;
+  }
+
+  .rulesImg {
+    grid-area: rules;
+    width: 311px;
+    height: 305px;
+  }
+
 
   .attribution {
     font-size: 7px;
